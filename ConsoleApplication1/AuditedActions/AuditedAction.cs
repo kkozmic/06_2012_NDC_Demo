@@ -1,4 +1,4 @@
-namespace ConsoleApplication1.AuditedActions
+namespace NdcDemo.AuditedActions
 {
     public abstract class AuditedAction
     {

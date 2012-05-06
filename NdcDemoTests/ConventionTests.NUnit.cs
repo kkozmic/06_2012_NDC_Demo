@@ -50,6 +50,8 @@ namespace ConventionTests
         /// </summary>
         public Predicate<Type> Types { get; set; }
 
+        public Func<Type, string> FailItemDescription { get; set; }
+
         /// <summary>
         ///   helper method to set <see cref="Assemblies" /> in a more convenient manner.
         /// </summary>
@@ -110,10 +112,10 @@ namespace ConventionTests
             {
                 Assert.Inconclusive("No types found to apply the convention to. Make sure the Types predicate is correct and that the right assemblies to scan are specified.");
             }
-
+            var itemDescription = (data.FailItemDescription ?? (t => t.ToString()));
             var invalidTypes = Array.FindAll(typesToTest, t => data.Must(t) == false);
             var message = (data.FailDescription ?? "Invalid types found") + Environment.NewLine + "\t" +
-                          string.Join<Type>(Environment.NewLine + "\t", invalidTypes);
+                          string.Join(Environment.NewLine + "\t", invalidTypes.Select(itemDescription));
             if (data.HasApprovedExceptions)
             {
                 Approve(message);

@@ -1,4 +1,4 @@
-namespace ConsoleApplication1.AuditedActionDtos
+namespace NdcDemo.AuditedActionDtos
 {
     public class FooAuditedActionDto : AuditedActionDto
     {

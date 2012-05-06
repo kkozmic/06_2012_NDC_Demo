@@ -6,11 +6,10 @@ using Cartographer;
 using Cartographer.Compiler;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using ConsoleApplication1;
-using ConsoleApplication1.AuditedActionDtos;
-using ConsoleApplication1.AuditedActions;
-using ConsoleApplication1.Contracts;
-using ConsoleApplication1.Services;
+using NdcDemo.AuditedActionDtos;
+using NdcDemo.AuditedActions;
+using NdcDemo.Contracts;
+using NdcDemo.Services;
 
 namespace NdcDemo
 {
@@ -85,23 +84,12 @@ namespace NdcDemo
         private static void AddFooDto(List<AuditedActionDto> dtos, AuditedAction action)
         {
             IWindsorContainer container = new WindsorContainer();
-
-
-
         }
 
         private static IEnumerable<AuditedAction> GetAuditedActions()
         {
-            yield return new BarAuditedAction();
+            yield return new FooAuditedAction();
         }
-
-        #region Nested type: BarAuditedAction
-
-        public class BarAuditedAction : AuditedAction
-        {
-        }
-
-        #endregion
 
         #region Nested type: Conference
 
@@ -186,11 +174,6 @@ namespace NdcDemo
     }
 
 
-    namespace SystemAbstractions
-    {
-    }
-
-
     internal class Report
     {
         public string LocationCode
@@ -222,10 +205,7 @@ namespace NdcDemo
         : Attribute
     {
     }
-}
 
-namespace NdcDemo.SystemAbstractions
-{
     public interface ITime
     {
         DateTime GetCurrentLocalTime();

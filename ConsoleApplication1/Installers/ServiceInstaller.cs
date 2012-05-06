@@ -2,9 +2,9 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using ConsoleApplication1.Services;
+using NdcDemo.Services;
 
-namespace ConsoleApplication1.Installers
+namespace NdcDemo.Installers
 {
     public class ServiceInstaller : IWindsorInstaller
     {

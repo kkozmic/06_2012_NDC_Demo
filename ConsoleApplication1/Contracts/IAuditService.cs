@@ -1,8 +1,7 @@
 using System.ServiceModel;
-using ConsoleApplication1.AuditedActionDtos;
-using NdcDemo;
+using NdcDemo.AuditedActionDtos;
 
-namespace ConsoleApplication1.Contracts
+namespace NdcDemo.Contracts
 {
     [ServiceContract]
     public interface IAuditService
