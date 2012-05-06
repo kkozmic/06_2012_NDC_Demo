@@ -14,7 +14,9 @@ namespace ConventionTests
                            Must = HaveNoStaticMembers,
                            FailDescription =
                                "DTOs are for data transfer only and therefore it makes no sense for them to have static members. The following types don't follow that rule:"
-                       }.FromAssembly(typeof (SomeAuditedActionDto).Assembly);
+                       }.FromAssembly(typeof (SomeAuditedActionDto).Assembly)
+                       .WithApprovedExceptions("Some DTOs share trivial logic between client and server");
+
         }
 
         private bool HaveNoStaticMembers(Type obj)
