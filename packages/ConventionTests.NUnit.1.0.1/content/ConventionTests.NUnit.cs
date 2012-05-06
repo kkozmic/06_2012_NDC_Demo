@@ -105,7 +105,13 @@ namespace ConventionTests
         public virtual void Execute()
         {
             var data = SetUp();
-            var invalidTypes = Array.FindAll(GetTypesToTest(data), t => data.Must(t) == false);
+            var typesToTest = GetTypesToTest(data);
+            if(typesToTest.Length == 0)
+            {
+                Assert.Inconclusive("No types found to apply the convention to. Make sure the Types predicate is correct and that the right assemblies to scan are specified.");
+            }
+
+            var invalidTypes = Array.FindAll(typesToTest, t => data.Must(t) == false);
             var message = data.FailDescription + Environment.NewLine + "\t" +
                           string.Join<Type>(Environment.NewLine + "\t", invalidTypes);
             if (data.HasApprovedExceptions)
