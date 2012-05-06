@@ -64,6 +64,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleApplication1\NdcDemo.csproj">
+      <Project>{C970150B-6BAB-4D24-B84C-489CB05B001A}</Project>
+      <Name>NdcDemo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
