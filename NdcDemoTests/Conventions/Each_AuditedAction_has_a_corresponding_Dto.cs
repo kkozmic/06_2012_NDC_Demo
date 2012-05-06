@@ -14,8 +14,8 @@ namespace ConventionTests
                        {
                            Types = IsAuditedAction,
                            Must = HaveCorrespondingDtoType
-                       };
-            ;
+                       }.FromAssembly(typeof (AuditedAction).Assembly);
+
         }
 
         private bool HaveCorrespondingDtoType(Type obj)
