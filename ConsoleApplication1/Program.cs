@@ -6,10 +6,11 @@ using Cartographer;
 using Cartographer.Compiler;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using ConsoleApplication1;
+using ConsoleApplication1.AuditedActionDtos;
+using ConsoleApplication1.AuditedActions;
 using ConsoleApplication1.Contracts;
 using ConsoleApplication1.Services;
-using NdcDemo.Dtos;
-using NdcDemo.SystemAbstractions;
 
 namespace NdcDemo
 {
@@ -157,10 +158,6 @@ namespace NdcDemo
         #endregion
     }
 
-    public class AuditedAction
-    {
-    }
-
     internal class MonthlyRevenuePerClient : Program.IReport
     {
     }
@@ -188,27 +185,9 @@ namespace NdcDemo
         #endregion
     }
 
-    public class AuditedActionDto
-    {
-    }
-
 
     namespace SystemAbstractions
     {
-    }
-
-    namespace SystemAbstractions
-    {
-        public class FooAuditedAction : AuditedAction
-        {
-        }
-    }
-
-    namespace Dtos
-    {
-        public class FooAuditedActionDto : AuditedActionDto
-        {
-        }
     }
 
 

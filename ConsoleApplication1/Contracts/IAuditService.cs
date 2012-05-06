@@ -1,4 +1,5 @@
 using System.ServiceModel;
+using ConsoleApplication1.AuditedActionDtos;
 using NdcDemo;
 
 namespace ConsoleApplication1.Contracts

@@ -2,6 +2,7 @@ using System;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using Cartographer;
+using ConsoleApplication1.AuditedActionDtos;
 using ConsoleApplication1.Contracts;
 using NdcDemo;
 

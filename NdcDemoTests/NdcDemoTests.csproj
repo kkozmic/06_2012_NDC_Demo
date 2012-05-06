@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Conventions\Each_AuditedAction_has_a_corresponding_Dto.cs" />
     <Compile Include="Conventions\__Run.cs" />
     <Compile Include="ConventionTests.NUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
