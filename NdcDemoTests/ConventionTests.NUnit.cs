@@ -112,7 +112,7 @@ namespace ConventionTests
             }
 
             var invalidTypes = Array.FindAll(typesToTest, t => data.Must(t) == false);
-            var message = data.FailDescription + Environment.NewLine + "\t" +
+            var message = (data.FailDescription ?? "Invalid types found") + Environment.NewLine + "\t" +
                           string.Join<Type>(Environment.NewLine + "\t", invalidTypes);
             if (data.HasApprovedExceptions)
             {
