@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conventions\All_components_registered_in_windsor_are_configured_properly.cs" />
+    <Compile Include="Conventions\Dtos_cant_have_static_members.cs" />
     <Compile Include="Conventions\Each_AuditedActionDto_has_a_corresponding_AuditedAction.cs" />
     <Compile Include="Conventions\Each_AuditedAction_has_a_corresponding_Dto.cs" />
     <Compile Include="Conventions\__Run.cs" />
