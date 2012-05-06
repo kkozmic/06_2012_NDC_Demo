@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using Cartographer;
 using Cartographer.Compiler;
-using Castle.Facilities.WcfIntegration;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using ConsoleApplication1.Contracts;
