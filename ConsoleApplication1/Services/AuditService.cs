@@ -1,6 +1,7 @@
 using System;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
+using Cartographer;
 using NdcDemo.AuditedActionDtos;
 using NdcDemo.Contracts;
 
@@ -12,12 +13,12 @@ namespace NdcDemo.Services
         = InstanceContextMode.PerCall)]
     public class AuditService : IAuditService
     {
-        //private IMapper mapper;
+        private IMapper mapper;
 
-        //public AuditService(IMapper mapper)
-        //{
-        //    this.mapper = mapper;
-        //}
+        public AuditService(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
 
         [FooBarBehavior]
         [OperationBehavior(Impersonation

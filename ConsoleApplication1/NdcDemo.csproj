@@ -69,6 +69,7 @@
     <Compile Include="AuditedActions\AuditedAction.cs" />
     <Compile Include="Contracts\IAuditService.cs" />
     <Compile Include="AuditedActions\SomeAuditedAction.cs" />
+    <Compile Include="Installers\MapperInstaller.cs" />
     <Compile Include="Installers\ServiceInstaller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
