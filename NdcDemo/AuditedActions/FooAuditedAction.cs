@@ -1,6 +1,6 @@
 namespace NdcDemo.AuditedActions
 {
-    public class SomeAuditedAction : AuditedAction
+    public class FooAuditedAction : AuditedAction
     {
     }
 }

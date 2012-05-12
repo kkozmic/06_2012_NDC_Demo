@@ -88,7 +88,7 @@ namespace NdcDemo
 
         private static IEnumerable<AuditedAction> GetAuditedActions()
         {
-            yield return new SomeAuditedAction();
+            yield return new FooAuditedAction();
         }
 
         #region Nested type: Conference
@@ -167,7 +167,7 @@ namespace NdcDemo
             throw new ArgumentException(
                 string.Format(
                     "Could not match type {0} to target type '{1}'\n\rTarget type '{1}' does not exist.\n\rMake sure you created it.",
-                    typeof (SomeAuditedAction), typeof (SomeAuditedActionDto)));
+                    typeof (FooAuditedAction), typeof (SomeAuditedActionDto)));
         }
 
         #endregion

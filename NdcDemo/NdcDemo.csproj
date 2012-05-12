@@ -70,7 +70,7 @@
     <Compile Include="AuditedActions\AnotherAuditedAction.cs" />
     <Compile Include="AuditedActions\AuditedAction.cs" />
     <Compile Include="Contracts\IAuditService.cs" />
-    <Compile Include="AuditedActions\SomeAuditedAction.cs" />
+    <Compile Include="AuditedActions\FooAuditedAction.cs" />
     <Compile Include="Installers\MapperInstaller.cs" />
     <Compile Include="Installers\ServiceInstaller.cs" />
     <Compile Include="Program.cs" />
