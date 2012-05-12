@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditedActionDtos\AnotherAuditedActionDto.cs" />
     <Compile Include="AuditedActionDtos\AuditedActionDto.cs" />
     <Compile Include="AuditedActionDtos\SomeAuditedActionDto.cs" />
     <Compile Include="AuditedActions\AuditedAction.cs" />
