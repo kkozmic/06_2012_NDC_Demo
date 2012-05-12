@@ -64,10 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditedActionDtos\AnotherAuditedActionDto.cs" />
+    <Compile Include="AuditedActionDtos\BarAuditedActionDto.cs" />
     <Compile Include="AuditedActionDtos\AuditedActionDto.cs" />
     <Compile Include="AuditedActionDtos\FooAuditedActionDto.cs" />
-    <Compile Include="AuditedActions\AnotherAuditedAction.cs" />
+    <Compile Include="AuditedActions\BarAuditedAction.cs" />
     <Compile Include="AuditedActions\AuditedAction.cs" />
     <Compile Include="Contracts\IAuditService.cs" />
     <Compile Include="AuditedActions\FooAuditedAction.cs" />

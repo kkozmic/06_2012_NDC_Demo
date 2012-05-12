@@ -8,7 +8,7 @@ namespace ConventionTests
     public class Each_AuditedAction_has_a_corresponding_DTO : ConventionTest
     {
         private readonly string dtoNamespace = typeof (AuditedActionDto).Namespace;
-        private readonly Assembly dtoAssembly = typeof (AnotherAuditedActionDto).Assembly;
+        private readonly Assembly dtoAssembly = typeof (BarAuditedActionDto).Assembly;
 
         protected override ConventionData SetUp()
         {

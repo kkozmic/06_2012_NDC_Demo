@@ -1,8 +1,8 @@
 namespace NdcDemo.AuditedActionDtos
 {
-    public class AnotherAuditedActionDto : AuditedActionDto
+    public class BarAuditedActionDto : AuditedActionDto
     {
-        public AnotherAuditedActionDto(string name)
+        public BarAuditedActionDto(string name)
         {
             Name = name;
         }
