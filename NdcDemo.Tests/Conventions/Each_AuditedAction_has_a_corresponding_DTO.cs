@@ -2,7 +2,6 @@
 using System.Reflection;
 using NdcDemo.AuditedActionDtos;
 using NdcDemo.AuditedActions;
-
 namespace ConventionTests
 {
     public class Each_dto_has_only_instance_members:ConventionTest
@@ -12,8 +11,9 @@ namespace ConventionTests
             return new ConventionData
                        {
                            Types = t => t.Name.EndsWith("Dto"),
-                           Must = HaveOnlyInstanceMembers
-                       };
+                           Must = HaveOnlyInstanceMembers,
+                       }.WithApprovedExceptions(
+                           "Checking for IsActive on a DTO is more convenient than duplicating it all around the place");
         }
 
         private bool HaveOnlyInstanceMembers(Type dto)

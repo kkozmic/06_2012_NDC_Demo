@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using ApprovalTests.Reporters;
 using NUnit.Framework;
+[assembly: UseReporter(typeof(DiffReporter))]
 
 namespace ConventionTests
 {
