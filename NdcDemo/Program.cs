@@ -167,7 +167,7 @@ namespace NdcDemo
             throw new ArgumentException(
                 string.Format(
                     "Could not match type {0} to target type '{1}'\n\rTarget type '{1}' does not exist.\n\rMake sure you created it.",
-                    typeof (FooAuditedAction), typeof (SomeAuditedActionDto)));
+                    typeof (FooAuditedAction), typeof (FooAuditedActionDto)));
         }
 
         #endregion
