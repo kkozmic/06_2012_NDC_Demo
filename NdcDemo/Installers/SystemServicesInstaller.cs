@@ -8,7 +8,8 @@ namespace NdcDemo.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<ITime>().ImplementedBy<Time>());
+            container.Register(Component.For<ITime>().ImplementedBy<Time>(),
+                Component.For<IFileSystem>().ImplementedBy<LocalFileSystem>());
         }
     }
 }
