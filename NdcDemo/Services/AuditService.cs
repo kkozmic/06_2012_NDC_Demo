@@ -14,10 +14,12 @@ namespace NdcDemo.Services
     public class AuditService : IAuditService
     {
         private IMapper mapper;
+        private readonly ITime time;
 
-        public AuditService(IMapper mapper)
+        public AuditService(IMapper mapper, ITime time)
         {
             this.mapper = mapper;
+            this.time = time;
         }
 
         [FooBarBehavior]
