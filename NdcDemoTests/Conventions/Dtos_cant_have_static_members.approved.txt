@@ -1,2 +1,0 @@
-DTOs are for data transfer only and therefore it makes no sense for them to have static members. The following types don't follow that rule:
-	NdcDemo.AuditedActionDtos.SomeAuditedActionDto
