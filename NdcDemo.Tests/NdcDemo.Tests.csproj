@@ -37,6 +37,7 @@
     <Reference Include="ApprovalUtilities">
       <HintPath>..\packages\ApprovalTests.1.9\lib\ApprovalUtilities.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Windsor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -55,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conventions\All_Windsor_components_can_be_resolved.cs" />
     <Compile Include="Conventions\Each_AuditedActionDto_has_a_corresponding_AuditedAction.cs" />
     <Compile Include="Conventions\Each_AuditedAction_has_a_corresponding_DTO.cs" />
     <Compile Include="Conventions\Each_dto_has_only_instance_members.cs" />
