@@ -57,7 +57,8 @@
   <ItemGroup>
     <Compile Include="Conventions\Each_AuditedActionDto_has_a_corresponding_AuditedAction.cs" />
     <Compile Include="Conventions\Each_AuditedAction_has_a_corresponding_DTO.cs" />
-    <Compile Include="Conventions\__Run.cs" />
+    <Compile Include="Conventions\Each_dto_has_only_instance_members.cs" />
+    <Compile Include="Conventions\ConventionTestsRunner.cs" />
     <Compile Include="ConventionTests.NUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
