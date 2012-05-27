@@ -6,3 +6,4 @@ _ReSharper.*
 *.DotSettings.user
 *.received.txt
 *.csproj.user
+*.received.txt

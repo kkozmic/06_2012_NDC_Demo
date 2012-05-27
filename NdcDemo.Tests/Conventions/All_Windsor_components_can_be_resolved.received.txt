@@ -1,4 +1,0 @@
-Invalid elements found
-	Some dependencies of this component could not be statically resolved.
-'NdcDemo.Services.AuditService' is waiting for the following dependencies:
-- Service 'System.IFormattable' which was not registered.

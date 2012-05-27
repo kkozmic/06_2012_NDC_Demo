@@ -1,4 +1,5 @@
-late bound IMapper
-LocalFileSystem / IFileSystem
-AuditService / IAuditService
-Time / ITime
+All components registered in the container
+	AuditService / IAuditService
+	late bound IMapper
+	LocalFileSystem / IFileSystem
+	Time / ITime
