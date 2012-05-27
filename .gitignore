@@ -5,3 +5,4 @@ _ReSharper.*
 *.suo
 *.DotSettings.user
 *.received.txt
+*.csproj.user
