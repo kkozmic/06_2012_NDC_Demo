@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ApprovalTests;
 using ApprovalTests.Core;
 using ApprovalTests.Namers;
+using Castle.MicroKernel;
+using Castle.Windsor;
+using Castle.Windsor.Diagnostics;
+using Castle.Windsor.Diagnostics.Helpers;
 using NUnit.Framework;
 using Approvals = ApprovalTests.Approvals;
 
@@ -11,9 +16,8 @@ namespace ConventionTests
 {
     public interface IConventionTest
     {
-        void Execute();
-
         string Name { get; }
+        void Execute();
     }
 
 
@@ -74,15 +78,49 @@ namespace ConventionTests
         }
     }
 
-    /// <summary>
-    ///   Base class for convention tests. Inherited types should be put in "/Conventions" folder in test assembly and follow Sentence_naming_convention_with_underscores_indead_of_spaces These tests will be ran by <see
-    ///    cref="ConventionTestsRunner" /> .
-    /// </summary>
-    public abstract class ConventionTest : IConventionTest
+    public abstract class ConventionTestBase : IConventionTest
     {
         public virtual string Name
         {
             get { return GetType().Name.Replace('_', ' '); }
+        }
+
+        public abstract void Execute();
+
+        protected void Approve(string message)
+        {
+            Approvals.Verify(new ApprovalTextWriter(message), new ConventionTestNamer(GetType().Name),
+                             Approvals.GetReporter());
+        }
+    }
+
+    /// <summary>
+    ///   Base class for convention tests. Inherited types should be put in "/Conventions" folder in test assembly and follow Sentence_naming_convention_with_underscores_indead_of_spaces These tests will be ran by <see
+    ///    cref="ConventionTestsRunner" /> .
+    /// </summary>
+    public abstract class ConventionTest : ConventionTestBase
+    {
+        public override void Execute()
+        {
+            var data = SetUp();
+            var typesToTest = GetTypesToTest(data);
+            if (typesToTest.Length == 0)
+            {
+                Assert.Inconclusive(
+                    "No types found to apply the convention to. Make sure the Types predicate is correct and that the right assemblies to scan are specified.");
+            }
+            var itemDescription = (data.FailItemDescription ?? (t => t.ToString()));
+            var invalidTypes = Array.FindAll(typesToTest, t => data.Must(t) == false);
+            var message = (data.FailDescription ?? "Invalid types found") + Environment.NewLine + "\t" +
+                          string.Join(Environment.NewLine + "\t", invalidTypes.Select(itemDescription));
+            if (data.HasApprovedExceptions)
+            {
+                Approve(message);
+            }
+            else
+            {
+                Assert.AreEqual(0, invalidTypes.Count(), message);
+            }
         }
 
         protected virtual Assembly[] GetAssembliesToScan(ConventionData data)
@@ -104,40 +142,175 @@ namespace ConventionTests
         /// <returns> </returns>
         protected abstract ConventionData SetUp();
 
-        public virtual void Execute()
-        {
-            var data = SetUp();
-            var typesToTest = GetTypesToTest(data);
-            if(typesToTest.Length == 0)
-            {
-                Assert.Inconclusive("No types found to apply the convention to. Make sure the Types predicate is correct and that the right assemblies to scan are specified.");
-            }
-            var itemDescription = (data.FailItemDescription ?? (t => t.ToString()));
-            var invalidTypes = Array.FindAll(typesToTest, t => data.Must(t) == false);
-            var message = (data.FailDescription ?? "Invalid types found") + Environment.NewLine + "\t" +
-                          string.Join(Environment.NewLine + "\t", invalidTypes.Select(itemDescription));
-            if (data.HasApprovedExceptions)
-            {
-                Approve(message);
-            }
-            else
-            {
-                Assert.AreEqual(0, invalidTypes.Count(), message);
-            }
-        }
-
-        private void Approve(string message)
-        {
-            Approvals.Verify(new ApprovalTextWriter(message), new ConventionTestNamer(GetType().Name),
-                             Approvals.GetReporter());
-        }
-
         protected virtual Type[] GetTypesToTest(ConventionData data)
         {
             return
                 GetAssembliesToScan(data).SelectMany(a => a.GetTypes()).Where(data.Types.Invoke).OrderBy(t => t.FullName)
                     .ToArray();
         }
+    }
+    public abstract class WindsorConventionTest<TDiagnostic> : WindsorConventionTest<TDiagnostic, IHandler>
+        where TDiagnostic : class, IDiagnostic<IEnumerable<IHandler>>, IDiagnostic<object>
+    {
+        
+    }
+
+    public abstract class WindsorConventionTest<TDiagnostic, TDiagnosticData> : ConventionTestBase
+        where TDiagnostic : class, IDiagnostic<IEnumerable<TDiagnosticData>>, IDiagnostic<object>
+    {
+        public override void Execute()
+        {
+            var conventionData = SetUp();
+            var diagnosticData = GetDataToTest(conventionData);
+            var itemDescription = (conventionData.FailItemDescription ?? (h => h.ToString() + "*"));
+            var invalidData = conventionData.Must == null
+                                ? diagnosticData
+                                : Array.FindAll(diagnosticData, h => conventionData.Must(h) == false);
+            var message = (conventionData.FailDescription ?? "Invalid elements found") + Environment.NewLine + "\t" +
+                          string.Join(Environment.NewLine + "\t", invalidData.Select(itemDescription));
+            if (conventionData.HasApprovedExceptions)
+            {
+                Approve(message);
+            }
+            else
+            {
+                Assert.AreEqual(0, invalidData.Count(), message);
+            }
+        }
+
+        private TDiagnosticData[] GetDataToTest(WindsorConventionData<TDiagnosticData> data)
+        {
+            var host = data.Kernel.GetSubSystem(SubSystemConstants.DiagnosticsKey) as IDiagnosticsHost;
+            IDiagnostic<IEnumerable<TDiagnosticData>> diagnostic = host.GetDiagnostic<TDiagnostic>();
+            if (diagnostic == null)
+            {
+                if (typeof(TDiagnostic).IsInterface)
+                {
+                    throw new ArgumentException(
+                        string.Format("Diagnostic {0} was not found in the container. Did you forget to add it?", typeof(TDiagnostic)));
+                }
+                throw new ArgumentException(
+                    string.Format(
+                        "Diagnostic {0} was not found in the container. The type is not an interface. Did you mean to use one of interfaces it implements instead?",
+                        typeof(TDiagnostic)));
+            }
+            var items = diagnostic.Inspect();
+            if(data.OrderBy != null)
+            {
+                return items.OrderBy(data.OrderBy).ToArray();
+            }
+            return items.ToArray();
+        }
+
+        protected abstract WindsorConventionData<TDiagnosticData> SetUp();
+    }
+
+    public abstract class WindsorConventionTest : ConventionTestBase
+    {
+        public override void Execute()
+        {
+            var data = SetUp();
+            var handlersToTest = GetHandlersToTest(data);
+            if (handlersToTest.Length == 0)
+            {
+                Assert.Inconclusive(
+                    "No handlers found to apply the convention to. Make sure the handlesr predicate is correct and that the right components were registered in the container.");
+            }
+            var itemDescription = (data.FailItemDescription ?? (h => h.GetComponentName()));
+            var invalidComponents = data.Must == null
+                                        ? handlersToTest
+                                        : Array.FindAll(handlersToTest, h => data.Must(h) == false);
+            var message = (data.FailDescription ?? "Invalid components found") + Environment.NewLine + "\t" +
+                          string.Join(Environment.NewLine + "\t", invalidComponents.Select(itemDescription));
+            if (data.HasApprovedExceptions)
+            {
+                Approve(message);
+            }
+            else
+            {
+                Assert.AreEqual(0, invalidComponents.Count(), message);
+            }
+        }
+
+        private IHandler[] GetHandlersToTest(WindsorConventionData data)
+        {
+            IHandler[] handlers;
+            if (data.Handlers != null)
+            {
+                handlers = data.Handlers(data.Kernel);
+            }
+            else
+            {
+                handlers = data.Kernel.GetAssignableHandlers(typeof(object));
+            }
+            Array.Sort(handlers,
+                       (h1, h2) =>
+                       String.Compare(h1.GetComponentName(), h2.GetComponentName(), StringComparison.OrdinalIgnoreCase));
+
+            return handlers;
+        }
+
+        protected abstract WindsorConventionData SetUp();
+    }
+
+    public class WindsorConventionData<TDiagnosticData>
+    {
+        private readonly IWindsorContainer container;
+
+        public WindsorConventionData(IWindsorContainer container)
+        {
+            this.container = container;
+        }
+
+        public IKernel Kernel
+        {
+            get { return Container.Kernel; }
+        }
+
+        public IWindsorContainer Container
+        {
+            get { return container; }
+        }
+
+        public Func<TDiagnosticData, string> FailItemDescription { get; set; }
+
+        public Func<TDiagnosticData, bool> Must { get; set; }
+
+        public string FailDescription { get; set; }
+
+        public bool HasApprovedExceptions { get; set; }
+
+        public Func<TDiagnosticData, object> OrderBy{get; set; }
+    }
+
+    public class WindsorConventionData
+    {
+        private readonly IWindsorContainer container;
+
+        public WindsorConventionData(IWindsorContainer container)
+        {
+            this.container = container;
+        }
+
+        public Func<IKernel, IHandler[]> Handlers { get; set; }
+
+        public Func<IHandler, bool> Must { get; set; }
+
+        public IKernel Kernel
+        {
+            get { return Container.Kernel; }
+        }
+
+        public IWindsorContainer Container
+        {
+            get { return container; }
+        }
+
+        public Func<IHandler, string> FailItemDescription { get; set; }
+
+        public string FailDescription { get; set; }
+
+        public bool HasApprovedExceptions { get; set; }
     }
 
     public class ConventionTestNamer : UnitTestFrameworkNamer, IApprovalNamer

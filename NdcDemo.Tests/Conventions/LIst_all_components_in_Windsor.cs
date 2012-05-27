@@ -1,50 +1,58 @@
-﻿using System;
-using ApprovalTests;
+﻿using System.Linq;
+using Castle.Core.Internal;
 using Castle.MicroKernel;
 using Castle.Windsor;
-using Castle.Windsor.Diagnostics;
-using Castle.Windsor.Diagnostics.Helpers;
 using Castle.Windsor.Installer;
 using NdcDemo.AuditedActions;
 
 namespace ConventionTests
 {
-    public class List_all_components_in_Windsor : IConventionTest
+    public class List_all_components_in_Windsor : WindsorConventionTest
     {
-        public void Execute()
+        protected override WindsorConventionData SetUp()
         {
-            var container = new WindsorContainer();
-            container.Install(FromAssembly.Containing<AuditedAction>());
-            var message = BuildAllComponentsMessage(container.Kernel);
-            Approve(message);
+            return new WindsorConventionData(new WindsorContainer().Install(FromAssembly.Containing<AuditedAction>()))
+                       {
+                           FailItemDescription = h => BuildDetailedHandlerDescription(h),
+                           HasApprovedExceptions = true,
+                           FailDescription = "All components registered in the container"
+                       };
+
         }
 
-        private string BuildAllComponentsMessage(IKernel kernel)
+        private string BuildDetailedHandlerDescription(IHandler handler)
         {
-            var allComponents = GetAllComponents(kernel);
-            return string.Join(Environment.NewLine, allComponents);
+            var componentName = handler.ComponentModel.ComponentName;
+            if (componentName.SetByUser)
+            {
+                return string.Format("\"{0}\" {1}", componentName.Name, GetServicesDescription(handler));
+            }
+            return GetServicesDescription(handler);
         }
 
-        private string[] GetAllComponents(IKernel container)
+        private string GetServicesDescription(IHandler handler)
         {
-            var host = container.GetSubSystem(SubSystemConstants.DiagnosticsKey) as IDiagnosticsHost;
-            var diagnostic = host.GetDiagnostic<IAllComponentsDiagnostic>();
+            var component = handler.ComponentModel;
+            var services = component.Services.ToArray();
+            if (services.Length == 1 && services[0] == component.Implementation)
+            {
+                return component.Implementation.ToCSharpString();
+            }
 
-            var allHandlers = diagnostic.Inspect();
-            Array.Sort(allHandlers, (i1, i2) => i1.ComponentModel.Name.CompareTo(i2.ComponentModel.Name));
-            var items = Array.ConvertAll(allHandlers, h => h.GetComponentName());
-            return items;
-        }
-
-        private void Approve(string message)
-        {
-            Approvals.Verify(new ApprovalTextWriter(message), new ConventionTestNamer(GetType().Name),
-                             Approvals.GetReporter());
-        }
-
-        public string Name
-        {
-            get { return "List all the components in Windsor"; }
+            string value;
+            if (component.Implementation == typeof(LateBoundComponent))
+            {
+                value = "late bound ";
+            }
+            else if (component.Implementation == null)
+            {
+                value = "no impl / ";
+            }
+            else
+            {
+                value = component.Implementation.ToCSharpString() + " / ";
+            }
+            return value + string.Join(", ", services.Select(s => s.ToCSharpString()));
         }
     }
 }
