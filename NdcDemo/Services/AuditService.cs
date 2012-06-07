@@ -1,4 +1,5 @@
 using System;
+using System.Security.Principal;
 using System.ServiceModel;
 using System.ServiceModel.Activation;
 using Cartographer;
