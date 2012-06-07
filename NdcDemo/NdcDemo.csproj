@@ -86,8 +86,6 @@
     <Compile Include="AuditedActions\AuditedAction.cs" />
     <Compile Include="Contracts\IAuditService.cs" />
     <Compile Include="AuditedActions\FooAuditedAction.cs" />
-    <Compile Include="Conventions\__Run.cs" />
-    <Compile Include="ConventionTests.NUnit.cs" />
     <Compile Include="Installers\MapperInstaller.cs" />
     <Compile Include="Installers\ServiceInstaller.cs" />
     <Compile Include="Installers\SystemServicesInstaller.cs" />

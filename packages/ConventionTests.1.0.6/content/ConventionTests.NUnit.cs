@@ -387,7 +387,7 @@ namespace ConventionTests
     {
         public static bool IsConcrete(this Type @this, Type potentialBase)
         {
-            return @this.IsAbstract && potentialBase.IsAssignableFrom(@this);
+            return @this.IsAbstract == false && potentialBase.IsAssignableFrom(@this);
         }
 
         public static bool IsConcrete<TBase>(this Type @this)
