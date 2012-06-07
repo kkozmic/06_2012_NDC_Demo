@@ -1,0 +1,5 @@
+All Windsor components
+	AuditService / IAuditService | Transient
+	late bound IMapper | Singleton*
+	LocalFileSystem / IFileSystem | Singleton*
+	Time / ITime | Singleton*
