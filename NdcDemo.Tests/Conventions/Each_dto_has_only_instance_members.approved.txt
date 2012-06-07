@@ -1,3 +1,0 @@
-Invalid types found
-	NdcDemo.AuditedActionDtos.FooAuditedActionDto with static members:
-		Boolean IsActive(NdcDemo.AuditedActionDtos.FooAuditedActionDto)

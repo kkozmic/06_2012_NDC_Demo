@@ -1,5 +1,0 @@
-All components registered in the container
-	AuditService / IAuditService
-	late bound IMapper
-	LocalFileSystem / IFileSystem
-	Time / ITime

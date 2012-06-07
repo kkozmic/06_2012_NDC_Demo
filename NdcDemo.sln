@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NdcDemo", "NdcDemo\NdcDemo.csproj", "{C970150B-6BAB-4D24-B84C-489CB05B001A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NdcDemo.Tests", "NdcDemo.Tests\NdcDemo.Tests.csproj", "{86EB50CE-79D5-46B3-B594-680F59AD54D9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,16 +23,6 @@ Global
 		{C970150B-6BAB-4D24-B84C-489CB05B001A}.Release|Mixed Platforms.Build.0 = Release|x86
 		{C970150B-6BAB-4D24-B84C-489CB05B001A}.Release|x86.ActiveCfg = Release|x86
 		{C970150B-6BAB-4D24-B84C-489CB05B001A}.Release|x86.Build.0 = Release|x86
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{86EB50CE-79D5-46B3-B594-680F59AD54D9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
