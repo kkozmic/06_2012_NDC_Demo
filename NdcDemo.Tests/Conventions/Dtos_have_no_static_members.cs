@@ -15,7 +15,7 @@ namespace ConventionTests
                     Must = t => GetStaticMembers(t).Any() == false,
                     FailDescription = "Static members found on dto types",
                     FailItemDescription = t => BuildFailDescription(t)
-                };
+                }.WithApprovedExceptions("Unless we parse string statuses");
         }
 
         private string BuildFailDescription(Type type)

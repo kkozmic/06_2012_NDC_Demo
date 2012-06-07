@@ -1,0 +1,3 @@
+Static members found on dto types
+	On type NdcDemo.AuditedActionDtos.FooAuditedActionDto
+Boolean IsActive(NdcDemo.AuditedActionDtos.FooAuditedActionDto)
