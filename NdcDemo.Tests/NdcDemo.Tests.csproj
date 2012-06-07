@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conventions\Dtos_have_no_static_members.cs" />
     <Compile Include="Conventions\Each_AuditedAction_has_a_dto.cs" />
     <Compile Include="Conventions\No_orphaned_audited_action_dtos.cs" />
     <Compile Include="Conventions\__Run.cs" />
