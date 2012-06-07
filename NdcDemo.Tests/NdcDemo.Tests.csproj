@@ -61,13 +61,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Conventions\Each_AuditedAction_has_a_dto.cs" />
     <Compile Include="Conventions\__Run.cs" />
     <Compile Include="ConventionTests.NUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NdcDemo\NdcDemo.csproj">
+      <Project>{C970150B-6BAB-4D24-B84C-489CB05B001A}</Project>
+      <Name>NdcDemo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

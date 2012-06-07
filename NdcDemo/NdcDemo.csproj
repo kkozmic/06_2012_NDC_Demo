@@ -79,7 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditedActionDtos\BarAuditedActionDto.cs" />
+    <Compile Include="AuditedActionDtos\Bar2AuditedActionDto.cs" />
     <Compile Include="AuditedActionDtos\AuditedActionDto.cs" />
     <Compile Include="AuditedActionDtos\FooAuditedActionDto.cs" />
     <Compile Include="AuditedActions\BarAuditedAction.cs" />
