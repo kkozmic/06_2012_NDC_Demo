@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conventions\Each_AuditedAction_has_a_dto.cs" />
+    <Compile Include="Conventions\No_orphaned_audited_action_dtos.cs" />
     <Compile Include="Conventions\__Run.cs" />
     <Compile Include="ConventionTests.NUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
