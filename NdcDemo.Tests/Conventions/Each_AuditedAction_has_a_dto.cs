@@ -14,6 +14,8 @@ namespace ConventionTests
                 {
                     Types = t => t.IsConcrete<AuditedAction>(),
                     Must = HaveCorrespondingDto,
+                    FailDescription = "There are audited action dtos missing",
+                    FailItemDescription = t=>GetDtoTypeName(t)+" for "+t.FullName
                 };
         }
 
