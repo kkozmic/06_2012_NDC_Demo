@@ -366,6 +366,12 @@ namespace ConventionTests
         public string FailDescription { get; set; }
 
         public bool HasApprovedExceptions { get; set; }
+
+        public WindsorConventionData WithApprovedExceptions(string message)
+        {
+            HasApprovedExceptions = true;
+            return this;
+        }
     }
 
     public class ConventionTestNamer : UnitTestFrameworkNamer, IApprovalNamer
